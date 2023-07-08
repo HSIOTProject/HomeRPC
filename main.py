@@ -5,6 +5,7 @@ import json
 from jsonrpcx import WSGIServer, WSGIServerDelegate
 import logging
 import opel
+import steuerung
 
 
 # does not work with gunicorn
@@ -48,6 +49,9 @@ class EnhancedE3DC(E3DC, E3DCWallboxEasyConnect):
     def getOpelInfo(self):
         return opel.getOpelInfo(self.config["opel"]["user"], self.config["opel"]["pass"])
     
+    def steuerung(self, data):
+        return steuerung.sterung(data)
+
 
 class ServiceWeb(EnhancedE3DC, WSGIServer):
     def __init__(self, delegate):
